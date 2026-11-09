@@ -1,0 +1,166 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notices Management | My School</title>
+    <link rel="stylesheet" href="/css/admin-dashboard.css">
+    <link rel="stylesheet" href="/css/notices.css">
+</head>
+<body>
+    <div class="page-layout">
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <div class="brand-icon">S</div>
+                <div>
+                    <h2>My School</h2>
+                    <span>Management Portal</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="/admin-dashboard.html">Dashboard</a>
+                <a href="/students.html">Students</a>
+                <a href="/teachers.html">Teachers</a>
+                <a href="/classes.html">Classes</a>
+                <a href="/subjects.html">Subjects</a>
+                <a href="/attendance.html">Attendance</a>
+                <a href="/assignments.html">Assignments</a>
+                <a href="/submissions.html">Submissions</a>
+                <a href="/assessments.html">Assessments</a>
+                <a href="/notices.html" class="active">Notices</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="notices-header">
+                <div>
+                    <h1>Notices & Announcements</h1>
+                    <p>Manage and view school announcements.</p>
+                </div>
+                <div class="header-actions">
+                    <span id="userRole" class="role-badge">Loading...</span>
+                    <button id="addNoticeBtn" class="primary-btn">+ Create Notice</button>
+                </div>
+            </header>
+
+            <section class="notice-stats">
+                <div class="stat-card">
+                    <span>Total Notices</span>
+                    <strong id="totalNotices">0</strong>
+                </div>
+                <div class="stat-card">
+                    <span>Published</span>
+                    <strong id="publishedNotices">0</strong>
+                </div>
+                <div class="stat-card">
+                    <span>Drafts</span>
+                    <strong id="draftNotices">0</strong>
+                </div>
+            </section>
+
+            <section class="notice-panel">
+                <div class="panel-toolbar">
+                    <div>
+                        <h2>All Notices</h2>
+                        <p>Search and manage announcements</p>
+                    </div>
+
+                    <div class="filters">
+                        <input type="search" id="searchInput" placeholder="Search notices...">
+
+                        <select id="audienceFilter">
+                            <option value="">All Audiences</option>
+                            <option value="all">Everyone</option>
+                            <option value="students">Students</option>
+                            <option value="teachers">Teachers</option>
+                            <option value="specific_class">Specific Classes</option>
+                        </select>
+
+                        <select id="statusFilter">
+                            <option value="">All Status</option>
+                            <option value="published">Published</option>
+                            <option value="draft">Drafts</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="noticeList" class="notice-list">
+                    <div class="loading-state">Loading notices...</div>
+                </div>
+
+                <div class="pagination">
+                    <button id="previousPage" class="secondary-btn">Previous</button>
+                    <span id="pageInfo">Page 1</span>
+                    <button id="nextPage" class="secondary-btn">Next</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="noticeModal">
+        <div class="notice-modal">
+            <div class="modal-header">
+                <div>
+                    <h2 id="modalTitle">Create Notice</h2>
+                    <p>Enter announcement details below.</p>
+                </div>
+                <button type="button" id="closeModalBtn" class="close-btn">&times;</button>
+            </div>
+
+            <form id="noticeForm">
+                <input type="hidden" id="noticeId">
+
+                <div class="form-group">
+                    <label for="title">Notice Title *</label>
+                    <input type="text" id="title" maxlength="200" required
+                           placeholder="Enter notice title">
+                </div>
+
+                <div class="form-group">
+                    <label for="content">Notice Content *</label>
+                    <textarea id="content" rows="6" maxlength="10000" required
+                              placeholder="Write your announcement..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="audience">Target Audience *</label>
+                    <select id="audience" required>
+                        <option value="all">Everyone</option>
+                        <option value="students">Students Only</option>
+                        <option value="teachers">Teachers Only</option>
+                        <option value="specific_class">Specific Classes</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="classGroup" hidden>
+                    <label for="targetClasses">Select Classes *</label>
+                    <select id="targetClasses" multiple size="5"></select>
+                    <small>Hold Ctrl to select multiple classes.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="expiresAt">Expiry Date (Optional)</label>
+                    <input type="datetime-local" id="expiresAt">
+                    <small>Notice automatically stops appearing after this date.</small>
+                </div>
+
+                <div class="form-check">
+                    <input type="checkbox" id="publishImmediately">
+                    <label for="publishImmediately">Publish immediately</label>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" id="cancelBtn" class="secondary-btn">Cancel</button>
+                    <button type="submit" id="saveNoticeBtn" class="primary-btn">Save Notice</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script src="/js/notices.js"></script>
+</body>
+</html>

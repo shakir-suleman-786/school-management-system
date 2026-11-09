@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assessments Management | My School</title>
+    <link rel="stylesheet" href="/css/admin-dashboard.css">
+    <link rel="stylesheet" href="/css/assessments.css">
+</head>
+<body>
+
+<div class="assessment-page">
+
+    <aside class="assessment-sidebar">
+        <div class="sidebar-brand">
+            <div class="brand-icon">S</div>
+            <div>
+                <h2>My School</h2>
+                <span>Management System</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="/admin-dashboard.html">Dashboard</a>
+            <a href="/students.html">Students</a>
+            <a href="/teachers.html">Teachers</a>
+            <a href="/classes.html">Classes</a>
+            <a href="/subjects.html">Subjects</a>
+            <a href="/attendance.html">Attendance</a>
+            <a href="/assignments.html">Assignments</a>
+            <a href="/submissions.html">Submissions</a>
+            <a href="/assessments.html" class="active">Assessments</a>
+            <a href="/notices.html">Notices</a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <span>School Management System</span>
+        </div>
+    </aside>
+
+    <main class="assessment-main">
+
+        <header class="assessment-topbar">
+            <div>
+                <h1>Assessments</h1>
+                <p>Manage student marks and academic results.</p>
+            </div>
+
+            <div class="topbar-user">
+                <div class="user-avatar" id="userAvatar">A</div>
+                <div>
+                    <strong id="userName">Administrator</strong>
+                    <span id="userRole">Admin</span>
+                </div>
+            </div>
+        </header>
+
+        <section class="assessment-content">
+
+            <div class="assessment-heading">
+                <div>
+                    <h2>Assessment Records</h2>
+                    <p>View, create and manage monthly subject assessments.</p>
+                </div>
+
+                <button class="primary-btn" id="addAssessmentBtn">
+                    + Add Assessment
+                </button>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span>Total Assessments</span>
+                    <strong id="totalAssessments">0</strong>
+                    <small>Recorded assessments</small>
+                </div>
+
+                <div class="stat-card">
+                    <span>Total Marks Obtained</span>
+                    <strong id="totalObtained">0</strong>
+                    <small>Across displayed records</small>
+                </div>
+
+                <div class="stat-card">
+                    <span>Average Percentage</span>
+                    <strong id="averagePercentage">0%</strong>
+                    <small>Displayed assessment average</small>
+                </div>
+            </div>
+
+            <div class="filter-panel">
+                <div class="filter-heading">
+                    <h3>Filter Assessments</h3>
+                    <button class="reset-btn" id="resetFiltersBtn">Reset Filters</button>
+                </div>
+
+                <div class="filter-grid">
+                    <div class="form-group" id="filterClassGroup">
+                        <label for="filterClass">Class</label>
+                        <select id="filterClass">
+                            <option value="">All Classes</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="filterSubject">Subject</label>
+                        <select id="filterSubject">
+                            <option value="">All Subjects</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="filterMonth">Month</label>
+                        <select id="filterMonth">
+                            <option value="">All Months</option>
+                            <option value="1">January</option>
+                            <option value="2">February</option>
+                            <option value="3">March</option>
+                            <option value="4">April</option>
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7">July</option>
+                            <option value="8">August</option>
+                            <option value="9">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="filterYear">Year</label>
+                        <input type="number" id="filterYear" placeholder="e.g. 2026">
+                    </div>
+
+                    <div class="form-group search-group">
+                        <label for="searchAssessment">Search</label>
+                        <input type="search" id="searchAssessment"
+                               placeholder="Student, subject or class...">
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-panel">
+
+                <div class="table-heading">
+                    <div>
+                        <h3>Assessment List</h3>
+                        <p id="recordCount">0 records found</p>
+                    </div>
+
+                    <button class="secondary-btn" id="refreshBtn">
+                        Refresh
+                    </button>
+                </div>
+
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Student</th>
+                                <th>Class</th>
+                                <th>Subject</th>
+                                <th>Month / Year</th>
+                                <th>Marks</th>
+                                <th>Percentage</th>
+                                <th>Teacher</th>
+                                <th>Date</th>
+                                <th id="actionsHeader">Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="assessmentsTableBody">
+                            <tr>
+                                <td colspan="9" class="empty-state">Loading assessments...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pagination-area">
+                    <button class="secondary-btn" id="previousPageBtn">Previous</button>
+                    <span id="pageInfo">Page 1</span>
+                    <button class="secondary-btn" id="nextPageBtn">Next</button>
+                </div>
+
+            </div>
+
+            <div class="results-panel" id="studentResultsPanel" hidden>
+                <div class="table-heading">
+                    <div>
+                        <h3>My Academic Results</h3>
+                        <p>Your overall academic performance.</p>
+                    </div>
+                </div>
+
+                <div class="results-summary">
+                    <div>
+                        <span>Total Assessments</span>
+                        <strong id="resultTotalAssessments">0</strong>
+                    </div>
+                    <div>
+                        <span>Marks Obtained</span>
+                        <strong id="resultTotalObtained">0</strong>
+                    </div>
+                    <div>
+                        <span>Total Possible Marks</span>
+                        <strong id="resultTotalPossible">0</strong>
+                    </div>
+                    <div>
+                        <span>Overall Percentage</span>
+                        <strong id="resultOverallPercentage">0%</strong>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+</div>
+
+<!-- Assessment Modal -->
+<div class="modal-overlay" id="assessmentModal">
+    <div class="assessment-modal">
+
+        <div class="modal-header">
+            <div>
+                <h2 id="modalTitle">Add Assessment</h2>
+                <p>Enter student assessment details.</p>
+            </div>
+            <button class="close-modal-btn" id="closeModalBtn">&times;</button>
+        </div>
+
+        <form id="assessmentForm">
+
+            <div class="modal-body">
+
+                <div class="form-grid">
+
+                    <div class="form-group" id="studentField">
+                        <label for="assessmentStudent">Student *</label>
+                        <select id="assessmentStudent" required>
+                            <option value="">Select Student</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" id="classField">
+                        <label for="assessmentClass">Class *</label>
+                        <select id="assessmentClass" required>
+                            <option value="">Select Class</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="assessmentSubject">Subject *</label>
+                        <select id="assessmentSubject" required>
+                            <option value="">Select Subject</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" id="teacherField">
+                        <label for="assessmentTeacher">Teacher *</label>
+                        <select id="assessmentTeacher" required>
+                            <option value="">Select Teacher</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="assessmentMonth">Month *</label>
+                        <select id="assessmentMonth" required>
+                            <option value="">Select Month</option>
+                            <option value="1">January</option>
+                            <option value="2">February</option>
+                            <option value="3">March</option>
+                            <option value="4">April</option>
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7">July</option>
+                            <option value="8">August</option>
+                            <option value="9">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="assessmentYear">Year *</label>
+                        <input type="number" id="assessmentYear"
+                               min="2000" max="2100" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="marksObtained">Marks Obtained *</label>
+                        <input type="number" id="marksObtained"
+                               min="0" step="0.01" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="totalMarks">Total Marks *</label>
+                        <input type="number" id="totalMarks"
+                               min="1" step="0.01" required>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="assessmentDate">Assessment Date</label>
+                        <input type="date" id="assessmentDate">
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="assessmentRemarks">Remarks</label>
+                        <textarea id="assessmentRemarks" rows="3"
+                                  maxlength="2000"
+                                  placeholder="Enter remarks (optional)"></textarea>
+                    </div>
+
+                </div>
+
+                <div class="percentage-preview">
+                    Calculated Percentage:
+                    <strong id="percentagePreview">0%</strong>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="secondary-btn" id="cancelModalBtn">
+                    Cancel
+                </button>
+                <button type="submit" class="primary-btn" id="saveAssessmentBtn">
+                    Save Assessment
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<script src="/js/assessments.js"></script>
+</body>
+</html>

@@ -1,0 +1,276 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#101828">
+    <title>Admin Dashboard | School Management</title>
+    <link rel="stylesheet" href="/css/admin-dashboard.css">
+    <script src="/js/admin-dashboard.js" defer></script>
+</head>
+<body>
+<div class="app-layout">
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="brand">
+            <div class="brand-logo">
+                <img id="sidebarLogo" src="" alt="School Logo" hidden>
+                <span id="sidebarLogoFallback">S</span>
+            </div>
+            <div class="brand-text">
+                <strong id="sidebarSchoolName">School Management</strong>
+                <small>ADMIN PORTAL</small>
+            </div>
+            <button class="close-sidebar" id="closeSidebar" aria-label="Close menu">×</button>
+        </div>
+
+        <div class="menu-label">MAIN MENU</div>
+        <nav class="navigation">
+            <a href="/admin-dashboard.html" class="nav-link active">
+                <span class="nav-icon">⌂</span> Dashboard
+            </a>
+            <a href="/students.html" class="nav-link">
+                <span class="nav-icon">♙</span> Students
+            </a>
+            <a href="/teachers.html" class="nav-link">
+                <span class="nav-icon">♟</span> Teachers
+            </a>
+            <a href="/classes.html" class="nav-link">
+                <span class="nav-icon">▦</span> Classes
+            </a>
+            <a href="/subjects.html" class="nav-link">
+                <span class="nav-icon">▤</span> Subjects
+            </a>
+            <a href="/attendance.html" class="nav-link">
+                <span class="nav-icon">◷</span> Attendance
+            </a>
+
+            <div class="menu-label secondary-label">ACADEMIC</div>
+            <a href="/assignments.html" class="nav-link">
+                <span class="nav-icon">▣</span> Assignments
+            </a>
+            <a href="/submissions.html" class="nav-link">
+                <span class="nav-icon">⇧</span> Submissions
+            </a>
+            <a href="/assessments.html" class="nav-link">
+                <span class="nav-icon">▥</span> Assessments
+            </a>
+            <a href="/notices.html" class="nav-link">
+                <span class="nav-icon">♢</span> Notices
+            </a>
+
+            <div class="menu-label secondary-label">SYSTEM</div>
+            <a href="/settings.html" class="nav-link">
+                <span class="nav-icon">⚙</span> School Settings
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="admin-mini">
+                <div class="avatar" id="sidebarAvatar">A</div>
+                <div class="user-info">
+                    <strong id="sidebarName">Administrator</strong>
+                    <small>System Administrator</small>
+                </div>
+            </div>
+            <button id="logoutButton" class="logout-button">
+                <span>↪</span> Sign out
+            </button>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <div class="topbar-left">
+                <button id="menuButton" class="menu-button" aria-label="Open menu">☰</button>
+                <div>
+                    <h1>Dashboard Overview</h1>
+                    <p>Here's what's happening at your school today.</p>
+                </div>
+            </div>
+
+            <div class="topbar-right">
+                <div class="date-display" id="currentDate"></div>
+                <div class="top-profile">
+                    <div class="avatar" id="topAvatar">A</div>
+                    <div class="user-info">
+                        <strong id="topName">Administrator</strong>
+                        <small>Administrator</small>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="page-content">
+            <section class="welcome-banner">
+                <div class="welcome-content">
+                    <span class="eyebrow">SCHOOL ADMINISTRATION</span>
+                    <h2>Welcome GBELS MAIN School TMK !</h2>
+                    <p>Manage your school's daily operations from one central place.</p>
+                </div>
+                <div class="welcome-brand">
+                    <img id="welcomeLogo" src="" alt="School Logo" hidden>
+                    <span id="welcomeLogoFallback">S</span>
+                </div>
+            </section>
+
+            <section class="section-block">
+                <div class="section-heading">
+                    <div>
+                        <h2>School Overview</h2>
+                        <p>A quick snapshot of your school information.</p>
+                    </div>
+                    <button class="refresh-button" id="refreshButton">↻ Refresh Data</button>
+                </div>
+
+                <div class="stats-grid">
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon icon-blue">♙</div>
+                            <span class="stat-tag">STUDENTS</span>
+                        </div>
+                        <h3 id="totalStudents">—</h3>
+                        <p>Total Students</p>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon icon-green">♟</div>
+                            <span class="stat-tag">STAFF</span>
+                        </div>
+                        <h3 id="totalTeachers">—</h3>
+                        <p>Total Teachers</p>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon icon-orange">▦</div>
+                            <span class="stat-tag">ACADEMIC</span>
+                        </div>
+                        <h3 id="totalClasses">—</h3>
+                        <p>Total Classes</p>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon icon-purple">▤</div>
+                            <span class="stat-tag">SUBJECTS</span>
+                        </div>
+                        <h3 id="totalSubjects">—</h3>
+                        <p>Total Subjects</p>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon icon-pink">◷</div>
+                            <span class="stat-tag">RECORDS</span>
+                        </div>
+                        <h3 id="totalAttendance">—</h3>
+                        <p>Attendance Records</p>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon icon-yellow">▣</div>
+                            <span class="stat-tag">LEARNING</span>
+                        </div>
+                        <h3 id="totalAssignments">—</h3>
+                        <p>Total Assignments</p>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon icon-teal">⇧</div>
+                            <span class="stat-tag">STUDENT WORK</span>
+                        </div>
+                        <h3 id="totalSubmissions">—</h3>
+                        <p>Total Submissions</p>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon icon-indigo">▥</div>
+                            <span class="stat-tag">RESULTS</span>
+                        </div>
+                        <h3 id="totalAssessments">—</h3>
+                        <p>Total Assessments</p>
+                    </article>
+                </div>
+                <p class="data-status" id="dataStatus">Loading school information...</p>
+            </section>
+
+            <section class="section-block">
+                <div class="section-heading">
+                    <div>
+                        <h2>Recent Students</h2>
+                        <p>Latest student registrations in your school.</p>
+                    </div>
+                    <a href="/students.html" class="text-link">View all students →</a>
+                </div>
+
+                <div class="table-card">
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>STUDENT</th>
+                                    <th>ADMISSION NO.</th>
+                                    <th>EMAIL ADDRESS</th>
+                                    <th>CLASS</th>
+                                    <th>STATUS</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentStudentsBody">
+                                <tr>
+                                    <td colspan="5" class="empty-state">Loading students...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section-block">
+                <div class="section-heading">
+                    <div>
+                        <h2>Quick Access</h2>
+                        <p>Go directly to the most frequently used modules.</p>
+                    </div>
+                </div>
+
+                <div class="quick-grid">
+                    <a href="/students.html" class="quick-card">
+                        <span class="quick-icon icon-blue">♙</span>
+                        <div><strong>Students</strong><small>Manage student records</small></div>
+                        <span class="quick-arrow">→</span>
+                    </a>
+                    <a href="/teachers.html" class="quick-card">
+                        <span class="quick-icon icon-green">♟</span>
+                        <div><strong>Teachers</strong><small>Manage teaching staff</small></div>
+                        <span class="quick-arrow">→</span>
+                    </a>
+                    <a href="/attendance.html" class="quick-card">
+                        <span class="quick-icon icon-pink">◷</span>
+                        <div><strong>Attendance</strong><small>Track daily attendance</small></div>
+                        <span class="quick-arrow">→</span>
+                    </a>
+                    <a href="/settings.html" class="quick-card">
+                        <span class="quick-icon icon-purple">⚙</span>
+                        <div><strong>School Settings</strong><small>Update school information</small></div>
+                        <span class="quick-arrow">→</span>
+                    </a>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <span>© <span id="currentYear"></span> <span id="footerSchoolName">School Management System</span></span>
+                <span>Admin Portal</span>
+            </footer>
+        </div>
+    </main>
+</div>
+</body>
+</html>

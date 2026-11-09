@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subjects Management | My School</title>
+    <link rel="stylesheet" href="/css/subjects.css">
+    <script src="/js/subjects.js" defer></script>
+</head>
+<body>
+
+<div class="app">
+    <aside class="sidebar" id="sidebar">
+        <div class="brand">
+            <div class="brand-icon">S</div>
+            <div>
+                <h2>My School</h2>
+                <span>Administration</span>
+            </div>
+        </div>
+
+        <div class="sidebar-profile">
+            <div class="profile-avatar">A</div>
+            <div>
+                <strong id="sidebarName">Administrator</strong>
+                <small>Admin Account</small>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <span class="nav-heading">MAIN MENU</span>
+            <a href="/admin-dashboard.html">Dashboard</a>
+            <a href="/students.html">Students</a>
+            <a href="/teachers.html">Teachers</a>
+            <a href="/classes.html">Classes</a>
+            <a href="/subjects.html" class="active">Subjects</a>
+            <a href="/attendance.html">Attendance</a>
+
+            <span class="nav-heading">ACADEMICS</span>
+            <a href="/assignments.html">Assignments</a>
+            <a href="/submissions.html">Submissions</a>
+            <a href="/assessments.html">Assessments</a>
+            <a href="/notices.html">Notices</a>
+        </nav>
+
+        <button class="logout-button" id="logoutButton">↪ Logout</button>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <button id="menuButton" class="menu-button">☰</button>
+            <div>
+                <h2>Subjects Management</h2>
+                <p>Manage school subjects, teachers and classes</p>
+            </div>
+            <div class="topbar-user">
+                <span class="user-avatar">A</span>
+                <strong id="topName">Administrator</strong>
+            </div>
+        </header>
+
+        <section class="page-content">
+            <div class="page-heading">
+                <div>
+                    <h1>Subjects</h1>
+                    <p>Manage all academic subjects from one place.</p>
+                </div>
+                <button id="addSubjectButton" class="primary-button">
+                    + Add New Subject
+                </button>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon blue">📚</div>
+                    <div>
+                        <span>Total Subjects</span>
+                        <h2 id="totalSubjects">0</h2>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon green">✓</div>
+                    <div>
+                        <span>Active Subjects</span>
+                        <h2 id="activeSubjects">0</h2>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon red">⊘</div>
+                    <div>
+                        <span>Inactive Subjects</span>
+                        <h2 id="inactiveSubjects">0</h2>
+                    </div>
+                </div>
+            </div>
+
+            <section class="content-card">
+                <div class="filter-bar">
+                    <input
+                        type="search"
+                        id="searchInput"
+                        placeholder="Search subject name, code or description..."
+                    >
+
+                    <select id="statusFilter">
+                        <option value="">All Status</option>
+                        <option value="true">Active</option>
+                        <option value="false">Inactive</option>
+                    </select>
+
+                    <button id="refreshButton" class="secondary-button">
+                        ↻ Refresh
+                    </button>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>SUBJECT</th>
+                                <th>SUBJECT CODE</th>
+                                <th>TEACHER</th>
+                                <th>ASSIGNED CLASSES</th>
+                                <th>STATUS</th>
+                                <th>ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody id="subjectsTable">
+                            <tr>
+                                <td colspan="6" class="empty-cell">Loading subjects...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pagination">
+                    <span id="paginationInfo">Showing 0 subjects</span>
+                    <div>
+                        <button id="previousButton" disabled>Previous</button>
+                        <span id="pageInfo">Page 1</span>
+                        <button id="nextButton" disabled>Next</button>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </main>
+</div>
+
+<div class="modal-overlay" id="subjectModal">
+    <div class="modal">
+        <div class="modal-header">
+            <div>
+                <h2 id="modalTitle">Add New Subject</h2>
+                <p>Enter subject information below.</p>
+            </div>
+            <button id="closeModalButton" class="close-button">&times;</button>
+        </div>
+
+        <form id="subjectForm">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="subjectName">Subject Name *</label>
+                    <input
+                        type="text"
+                        id="subjectName"
+                        name="name"
+                        placeholder="e.g. Mathematics"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="subjectCode">Subject Code *</label>
+                    <input
+                        type="text"
+                        id="subjectCode"
+                        name="code"
+                        placeholder="e.g. MATH101"
+                        required
+                    >
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="subjectDescription">Description</label>
+                    <textarea
+                        id="subjectDescription"
+                        name="description"
+                        rows="3"
+                        placeholder="Enter subject description"
+                    ></textarea>
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="subjectTeacher">Assign Teacher</label>
+                    <select id="subjectTeacher" name="teacher">
+                        <option value="">No Teacher Assigned</option>
+                    </select>
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="subjectClasses">Assign Classes</label>
+                    <select id="subjectClasses" name="classes" multiple size="5"></select>
+                    <small>Hold Ctrl to select multiple classes.</small>
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button type="button" id="cancelButton" class="secondary-button">
+                    Cancel
+                </button>
+                <button type="submit" id="saveButton" class="primary-button">
+                    Save Subject
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+</body>
+</html>

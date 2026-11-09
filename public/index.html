@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#101d35">
+
+    <title>Admin Login | School Management System</title>
+
+    <link rel="stylesheet" href="/css/admin-login.css">
+    <script src="/js/admin-login.js" defer></script>
+</head>
+
+<body>
+
+    <main class="login-layout">
+
+        <section class="branding-panel">
+
+            <div class="brand">
+                <div class="brand-logo">S</div>
+                <span>School Management</span>
+            </div>
+
+            <div class="branding-content">
+                <span class="eyebrow">ADMINISTRATION PORTAL</span>
+
+                <h1>Manage your school with confidence.</h1>
+
+                <p>
+                    A centralized platform to manage students,
+                    teachers, academics and school operations.
+                </p>
+
+                <div class="feature-list">
+                    <div class="feature">
+                        <span class="feature-icon">✓</span>
+                        Secure Administration
+                    </div>
+
+                    <div class="feature">
+                        <span class="feature-icon">✓</span>
+                        Academic Management
+                    </div>
+
+                    <div class="feature">
+                        <span class="feature-icon">✓</span>
+                        Centralized School Records
+                    </div>
+                </div>
+            </div>
+
+            <div class="branding-footer">
+                © 2026 School Management System. All rights reserved.
+            </div>
+
+        </section>
+
+        <section class="form-panel">
+
+            <div class="login-card">
+
+                <div class="mobile-brand">
+                    <div class="brand-logo">S</div>
+                    <span>School Management</span>
+                </div>
+
+                <div class="form-heading">
+                    <span class="welcome-label">WELCOME BACK</span>
+                    <h2>Admin Login</h2>
+                    <p>Enter your credentials to access your account.</p>
+                </div>
+
+                <div id="message" class="message" role="alert"
+                     aria-live="polite"></div>
+
+                <form id="loginForm">
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="admin@example.com"
+                            autocomplete="username"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+
+                        <div class="password-wrapper">
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                id="togglePassword"
+                                class="toggle-password"
+                                aria-label="Show password"
+                            >
+                                Show
+                            </button>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="loginButton"
+                            class="login-button">
+                        <span id="buttonText">Sign In to Dashboard</span>
+                    </button>
+
+                </form>
+
+                <p class="security-note">
+                    <span>🔒</span>
+                    Secure access for authorized administrators only.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+</html>

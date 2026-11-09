@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Settings | My School</title>
+    <link rel="stylesheet" href="/css/admin-dashboard.css">
+    <link rel="stylesheet" href="/css/settings.css">
+</head>
+<body>
+    <div class="page-layout">
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <div class="brand-icon">S</div>
+                <div>
+                    <h2>My School</h2>
+                    <span>Management Portal</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="/admin-dashboard.html">Dashboard</a>
+                <a href="/students.html">Students</a>
+                <a href="/teachers.html">Teachers</a>
+                <a href="/classes.html">Classes</a>
+                <a href="/subjects.html">Subjects</a>
+                <a href="/attendance.html">Attendance</a>
+                <a href="/assignments.html">Assignments</a>
+                <a href="/submissions.html">Submissions</a>
+                <a href="/assessments.html">Assessments</a>
+                <a href="/notices.html">Notices</a>
+                <a href="/settings.html" class="active">Settings</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="settings-header">
+                <div>
+                    <h1>School Settings</h1>
+                    <p>Manage your school's information and branding.</p>
+                </div>
+                <span id="userRole" class="role-badge">Loading...</span>
+            </header>
+
+            <div class="settings-layout">
+                <section class="settings-card">
+                    <div class="card-heading">
+                        <div>
+                            <h2>School Information</h2>
+                            <p>Update your school's basic information.</p>
+                        </div>
+                        <span class="heading-icon">🏫</span>
+                    </div>
+
+                    <form id="settingsForm">
+                        <div class="form-grid">
+                            <div class="form-group full-width">
+                                <label for="schoolName">School Name</label>
+                                <input type="text" id="schoolName"
+                                       maxlength="150"
+                                       placeholder="Enter school name">
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="schoolAddress">School Address</label>
+                                <textarea id="schoolAddress" rows="3"
+                                          maxlength="500"
+                                          placeholder="Enter complete school address"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="schoolPhone">Phone Number</label>
+                                <input type="tel" id="schoolPhone"
+                                       maxlength="30"
+                                       placeholder="Enter phone number">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="schoolEmail">School Email</label>
+                                <input type="email" id="schoolEmail"
+                                       maxlength="150"
+                                       placeholder="Enter school email">
+                            </div>
+                        </div>
+
+                        <div class="form-footer">
+                            <button type="submit" id="saveSettingsBtn"
+                                    class="primary-btn">
+                                Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </section>
+
+                <section class="settings-card logo-card">
+                    <div class="card-heading">
+                        <div>
+                            <h2>School Logo</h2>
+                            <p>Upload your official school logo.</p>
+                        </div>
+                        <span class="heading-icon">🖼️</span>
+                    </div>
+
+                    <div class="logo-preview-area">
+                        <div class="logo-preview" id="logoPreview">
+                            <span id="logoPlaceholder">S</span>
+                            <img id="logoImage" src="" alt="School Logo" hidden>
+                        </div>
+
+                        <div class="logo-info">
+                            <strong>Current School Logo</strong>
+                            <span id="logoStatus">No logo uploaded</span>
+                            <small>PNG, JPG, JPEG or other supported image formats. Maximum 2 MB.</small>
+                        </div>
+                    </div>
+
+                    <div class="logo-actions">
+                        <label for="logoInput" class="secondary-btn upload-label">
+                            Choose Logo
+                        </label>
+                        <input type="file" id="logoInput" accept="image/*" hidden>
+
+                        <button type="button" id="uploadLogoBtn" class="primary-btn" disabled>
+                            Upload Logo
+                        </button>
+
+                        <button type="button" id="deleteLogoBtn"
+                                class="danger-btn" hidden>
+                            Remove Logo
+                        </button>
+                    </div>
+
+                    <p id="selectedFileName" class="selected-file"></p>
+                </section>
+
+                <section class="settings-card information-card">
+                    <h2>Settings Information</h2>
+                    <div class="information-row">
+                        <span>Settings Record</span>
+                        <strong id="settingsRecord">School</strong>
+                    </div>
+                    <div class="information-row">
+                        <span>Last Updated</span>
+                        <strong id="updatedAt">Not available</strong>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script src="/js/settings.js"></script>
+</body>
+</html>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignments Management | My School</title>
+    <link rel="stylesheet" href="/css/admin-dashboard.css">
+    <link rel="stylesheet" href="/css/assignments.css">
+</head>
+<body>
+<div class="app-layout">
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <div class="brand-icon">S</div>
+            <div><h2>My School</h2><span>Management System</span></div>
+        </div>
+
+        <div class="sidebar-profile">
+            <div class="profile-avatar">A</div>
+            <div><strong id="sidebarName">Administrator</strong><small>Management Portal</small></div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <span class="nav-heading">MAIN MENU</span>
+            <a href="/admin-dashboard.html" class="nav-link">Dashboard</a>
+            <a href="/students.html" class="nav-link">Students</a>
+            <a href="/teachers.html" class="nav-link">Teachers</a>
+            <a href="/classes.html" class="nav-link">Classes</a>
+            <a href="/subjects.html" class="nav-link">Subjects</a>
+            <a href="/attendance.html" class="nav-link">Attendance</a>
+            <a href="/assignments.html" class="nav-link active">Assignments</a>
+            <a href="/submissions.html" class="nav-link">Submissions</a>
+            <a href="/assessments.html" class="nav-link">Assessments</a>
+            <a href="/notices.html" class="nav-link">Notices</a>
+            <a href="/settings.html" class="nav-link">Settings</a>
+        </nav>
+
+        <button class="logout-button" id="logoutButton">↪ Logout</button>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <button class="menu-button" id="menuButton">☰</button>
+            <div>
+                <h2>Assignments</h2>
+                <p>Manage classroom assignments and student tasks</p>
+            </div>
+            <div class="topbar-user" id="topName">Administrator</div>
+        </header>
+
+        <section class="page-content">
+            <div class="page-heading">
+                <div>
+                    <h1>Assignments Management</h1>
+                    <p>Create, publish and manage student assignments.</p>
+                </div>
+                <button class="primary-button" id="addAssignmentButton">+ Create Assignment</button>
+            </div>
+
+            <div class="assignment-stats">
+                <div class="stat-card">
+                    <span>Total Assignments</span>
+                    <strong id="totalCount">0</strong>
+                </div>
+                <div class="stat-card">
+                    <span>Published</span>
+                    <strong id="publishedCount">0</strong>
+                </div>
+                <div class="stat-card">
+                    <span>Drafts</span>
+                    <strong id="draftCount">0</strong>
+                </div>
+                <div class="stat-card">
+                    <span>Closed</span>
+                    <strong id="closedCount">0</strong>
+                </div>
+            </div>
+
+            <section class="content-card">
+                <div class="section-header">
+                    <div>
+                        <h3>All Assignments</h3>
+                        <p>Search and filter assignment records.</p>
+                    </div>
+                    <button class="secondary-button" id="refreshButton">↻ Refresh</button>
+                </div>
+
+                <div class="filters">
+                    <input type="search" id="searchInput" placeholder="Search assignment title...">
+                    <select id="classFilter">
+                        <option value="">All Classes</option>
+                    </select>
+                    <select id="subjectFilter">
+                        <option value="">All Subjects</option>
+                    </select>
+                    <select id="statusFilter">
+                        <option value="">All Statuses</option>
+                        <option value="draft">Draft</option>
+                        <option value="published">Published</option>
+                        <option value="closed">Closed</option>
+                    </select>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Assignment</th>
+                            <th>Class</th>
+                            <th>Subject</th>
+                            <th>Due Date</th>
+                            <th>Max Marks</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody id="assignmentsTableBody">
+                        <tr><td colspan="7" class="table-message">Loading assignments...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="table-footer">
+                    <span id="paginationInfo">Showing 0 assignments</span>
+                </div>
+            </section>
+        </section>
+    </main>
+</div>
+
+<div class="modal-overlay" id="assignmentModal">
+    <div class="assignment-modal">
+        <div class="modal-header">
+            <div>
+                <h2 id="modalTitle">Create Assignment</h2>
+                <p>Enter assignment information below.</p>
+            </div>
+            <button class="close-button" id="closeModalButton">&times;</button>
+        </div>
+
+        <form id="assignmentForm">
+            <input type="hidden" id="assignmentId">
+
+            <div class="form-grid">
+                <div class="form-group full-width">
+                    <label for="title">Assignment Title *</label>
+                    <input type="text" id="title" maxlength="200" required placeholder="Enter assignment title">
+                </div>
+
+                <div class="form-group">
+                    <label for="classId">Class *</label>
+                    <select id="classId" required>
+                        <option value="">Select Class</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="subjectId">Subject *</label>
+                    <select id="subjectId" required>
+                        <option value="">Select Subject</option>
+                    </select>
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="description">Description *</label>
+                    <textarea id="description" rows="3" required placeholder="Describe the assignment"></textarea>
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="instructions">Instructions</label>
+                    <textarea id="instructions" rows="3" placeholder="Additional instructions (optional)"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="dueDate">Due Date *</label>
+                    <input type="datetime-local" id="dueDate" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="maxMarks">Maximum Marks</label>
+                    <input type="number" id="maxMarks" min="0" value="100">
+                </div>
+
+                <div class="form-group">
+                    <label for="status">Assignment Status</label>
+                    <select id="status">
+                        <option value="draft">Draft</option>
+                        <option value="published">Published</option>
+                        <option value="closed">Closed</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Allowed File Types</label>
+                    <div class="file-types">
+                        <label><input type="checkbox" name="fileType" value="pdf"> PDF</label>
+                        <label><input type="checkbox" name="fileType" value="doc"> DOC</label>
+                        <label><input type="checkbox" name="fileType" value="docx"> DOCX</label>
+                        <label><input type="checkbox" name="fileType" value="jpg"> JPG</label>
+                        <label><input type="checkbox" name="fileType" value="jpeg"> JPEG</label>
+                        <label><input type="checkbox" name="fileType" value="png"> PNG</label>
+                    </div>
+                </div>
+
+                <div class="form-group full-width submission-options">
+                    <label><input type="checkbox" id="allowTextSubmission" checked> Allow text submission</label>
+                    <label><input type="checkbox" id="allowFileSubmission" checked> Allow file submission</label>
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button type="button" class="secondary-button" id="cancelButton">Cancel</button>
+                <button type="submit" class="primary-button" id="saveButton">Save Assignment</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal-overlay" id="viewModal">
+    <div class="assignment-modal view-modal">
+        <div class="modal-header">
+            <div><h2>Assignment Details</h2><p>Complete assignment information.</p></div>
+            <button class="close-button" id="closeViewButton">&times;</button>
+        </div>
+        <div id="assignmentDetails" class="assignment-details"></div>
+    </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script src="/js/assignments.js"></script>
+</body>
+</html>

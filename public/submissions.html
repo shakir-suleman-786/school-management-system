@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submissions Management | My School</title>
+    <link rel="stylesheet" href="/css/admin-dashboard.css">
+    <link rel="stylesheet" href="/css/submissions.css">
+</head>
+<body>
+<div class="app-layout">
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <div class="brand-icon">S</div>
+            <div><h2>My School</h2><span>Management System</span></div>
+        </div>
+
+        <div class="sidebar-profile">
+            <div class="profile-avatar">S</div>
+            <div><strong id="sidebarName">User</strong><small id="sidebarRole">School Portal</small></div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <span class="nav-heading">MAIN MENU</span>
+            <a href="/admin-dashboard.html" class="nav-link">Dashboard</a>
+            <a href="/students.html" class="nav-link">Students</a>
+            <a href="/teachers.html" class="nav-link">Teachers</a>
+            <a href="/classes.html" class="nav-link">Classes</a>
+            <a href="/subjects.html" class="nav-link">Subjects</a>
+            <a href="/attendance.html" class="nav-link">Attendance</a>
+            <a href="/assignments.html" class="nav-link">Assignments</a>
+            <a href="/submissions.html" class="nav-link active">Submissions</a>
+            <a href="/assessments.html" class="nav-link">Assessments</a>
+            <a href="/notices.html" class="nav-link">Notices</a>
+            <a href="/settings.html" class="nav-link">Settings</a>
+        </nav>
+
+        <button class="logout-button" id="logoutButton">↪ Logout</button>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <button class="menu-button" id="menuButton">☰</button>
+            <div>
+                <h2>Submissions</h2>
+                <p>Assignment submissions and grading</p>
+            </div>
+            <div class="topbar-user" id="topName">User</div>
+        </header>
+
+        <section class="page-content">
+            <div class="page-heading">
+                <div>
+                    <h1>Submissions Management</h1>
+                    <p id="pageDescription">Review, submit and manage assignment submissions.</p>
+                </div>
+                <button class="secondary-button" id="refreshButton">↻ Refresh</button>
+            </div>
+
+            <div class="submission-stats">
+                <div class="stat-card">
+                    <span>Total Submissions</span>
+                    <strong id="totalCount">0</strong>
+                </div>
+                <div class="stat-card">
+                    <span>Submitted</span>
+                    <strong id="submittedCount">0</strong>
+                </div>
+                <div class="stat-card">
+                    <span>Graded</span>
+                    <strong id="gradedCount">0</strong>
+                </div>
+                <div class="stat-card">
+                    <span>Late Submissions</span>
+                    <strong id="lateCount">0</strong>
+                </div>
+            </div>
+
+            <section class="content-card" id="studentSection" hidden>
+                <div class="section-header">
+                    <div>
+                        <h3>Available Assignments</h3>
+                        <p>Submit your work before the due date.</p>
+                    </div>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Assignment</th>
+                            <th>Subject</th>
+                            <th>Due Date</th>
+                            <th>Max Marks</th>
+                            <th>Submission</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody id="studentAssignmentsBody">
+                        <tr><td colspan="6" class="table-message">Loading assignments...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="section-header my-submissions-heading">
+                    <div>
+                        <h3>My Submissions</h3>
+                        <p>Check your submission status and grades.</p>
+                    </div>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Assignment</th>
+                            <th>Submitted At</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                            <th>Marks</th>
+                            <th>Feedback</th>
+                            <th>File</th>
+                        </tr>
+                        </thead>
+                        <tbody id="mySubmissionsBody">
+                        <tr><td colspan="7" class="table-message">Loading submissions...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="content-card" id="reviewerSection" hidden>
+                <div class="section-header">
+                    <div>
+                        <h3>Review Assignment Submissions</h3>
+                        <p>Select an assignment to review student work.</p>
+                    </div>
+                </div>
+
+                <div class="review-filters">
+                    <select id="assignmentFilter">
+                        <option value="">Select Assignment</option>
+                    </select>
+                    <button class="primary-button" id="loadSubmissionsButton">Load Submissions</button>
+                </div>
+
+                <div class="selected-assignment" id="selectedAssignment"></div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Student</th>
+                            <th>Roll Number</th>
+                            <th>Submitted At</th>
+                            <th>Type</th>
+                            <th>Late</th>
+                            <th>Status</th>
+                            <th>Marks</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody id="reviewSubmissionsBody">
+                        <tr><td colspan="8" class="table-message">Select an assignment to view submissions.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </section>
+    </main>
+</div>
+
+<div class="modal-overlay" id="submitModal">
+    <div class="submission-modal">
+        <div class="modal-header">
+            <div>
+                <h2 id="submitModalTitle">Submit Assignment</h2>
+                <p id="submitAssignmentInfo">Enter your work below.</p>
+            </div>
+            <button class="close-button" id="closeSubmitModal">&times;</button>
+        </div>
+
+        <form id="submitForm">
+            <input type="hidden" id="submitAssignmentId">
+
+            <div class="form-group" id="textSubmissionGroup">
+                <label for="textContent">Your Answer</label>
+                <textarea id="textContent" rows="8" maxlength="50000"
+                          placeholder="Write your assignment answer here..."></textarea>
+            </div>
+
+            <div class="form-group" id="fileSubmissionGroup">
+                <label for="submissionFile">Upload File (Maximum 5 MB)</label>
+                <input type="file" id="submissionFile" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+                <small id="allowedTypesText">Allowed file types depend on the assignment.</small>
+            </div>
+
+            <div class="modal-actions">
+                <button type="button" class="secondary-button" id="cancelSubmitButton">Cancel</button>
+                <button type="submit" class="primary-button" id="submitWorkButton">Submit Work</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal-overlay" id="gradeModal">
+    <div class="submission-modal grade-modal">
+        <div class="modal-header">
+            <div>
+                <h2>Grade Submission</h2>
+                <p id="gradeStudentName">Review student work.</p>
+            </div>
+            <button class="close-button" id="closeGradeModal">&times;</button>
+        </div>
+
+        <form id="gradeForm">
+            <input type="hidden" id="gradeSubmissionId">
+
+            <div class="form-group">
+                <label for="marksObtained">Marks Obtained *</label>
+                <input type="number" id="marksObtained" min="0" required>
+                <small id="maximumMarksText"></small>
+            </div>
+
+            <div class="form-group">
+                <label for="feedback">Teacher Feedback</label>
+                <textarea id="feedback" rows="5" maxlength="5000"
+                          placeholder="Write feedback for the student..."></textarea>
+            </div>
+
+            <div class="modal-actions">
+                <button type="button" class="secondary-button" id="cancelGradeButton">Cancel</button>
+                <button type="submit" class="primary-button" id="saveGradeButton">Save Grade</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal-overlay" id="viewSubmissionModal">
+    <div class="submission-modal">
+        <div class="modal-header">
+            <div><h2>Submission Details</h2><p>Student's submitted work.</p></div>
+            <button class="close-button" id="closeViewSubmission">&times;</button>
+        </div>
+        <div id="submissionDetails" class="submission-details"></div>
+    </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script src="/js/submissions.js"></script>
+</body>
+</html>

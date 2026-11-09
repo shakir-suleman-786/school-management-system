@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classes Management | My School</title>
+    <link rel="stylesheet" href="/css/classes.css">
+    <script src="/js/classes.js" defer></script>
+</head>
+<body>
+<div class="layout">
+    <aside class="sidebar" id="sidebar">
+        <div class="brand">
+            <div class="brand-logo">S</div>
+            <div>
+                <strong>My School</strong>
+                <small>ADMIN PORTAL</small>
+            </div>
+        </div>
+
+        <div class="menu-label">MAIN MENU</div>
+        <nav>
+            <a href="/admin-dashboard.html" class="nav-link">▦ Dashboard</a>
+            <a href="/students.html" class="nav-link">♙ Students</a>
+            <a href="/teachers.html" class="nav-link">♟ Teachers</a>
+            <a href="/classes.html" class="nav-link active">▦ Classes</a>
+            <a href="/subjects.html" class="nav-link">▤ Subjects</a>
+            <a href="/attendance.html" class="nav-link">◷ Attendance</a>
+        </nav>
+
+        <div class="menu-label academic-label">ACADEMIC</div>
+        <nav>
+            <a href="/assignments.html" class="nav-link">▣ Assignments</a>
+            <a href="/submissions.html" class="nav-link">⇧ Submissions</a>
+            <a href="/assessments.html" class="nav-link">▥ Assessments</a>
+            <a href="/notices.html" class="nav-link">◇ Notices</a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="admin-mini">
+                <div class="avatar">A</div>
+                <div>
+                    <strong id="sidebarName">Administrator</strong>
+                    <small>Administrator</small>
+                </div>
+            </div>
+            <button id="logoutButton" class="logout-button">↪ Logout</button>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <button class="menu-button" id="menuButton">☰</button>
+            <div>
+                <h2>Classes Management</h2>
+                <p>Manage classes, teachers, students and subjects.</p>
+            </div>
+            <div class="top-profile">
+                <div class="avatar">A</div>
+                <div>
+                    <strong id="topName">Administrator</strong>
+                    <small>Admin</small>
+                </div>
+            </div>
+        </header>
+
+        <section class="content">
+            <div class="page-heading">
+                <div>
+                    <h1>Classes</h1>
+                    <p>Create and manage your school's classes.</p>
+                </div>
+                <button class="primary-button" id="addClassButton">
+                    + Add New Class
+                </button>
+            </div>
+
+            <div class="stats-grid">
+                <article class="stat-card">
+                    <div class="stat-icon blue">▦</div>
+                    <div><small>Total Classes</small><h2 id="totalClasses">0</h2></div>
+                </article>
+                <article class="stat-card">
+                    <div class="stat-icon green">✓</div>
+                    <div><small>Active Classes</small><h2 id="activeClasses">0</h2></div>
+                </article>
+                <article class="stat-card">
+                    <div class="stat-icon orange">!</div>
+                    <div><small>Inactive Classes</small><h2 id="inactiveClasses">0</h2></div>
+                </article>
+            </div>
+
+            <section class="table-card">
+                <div class="table-heading">
+                    <div>
+                        <h2>All Classes</h2>
+                        <p>View and manage class information.</p>
+                    </div>
+                    <button class="outline-button" id="refreshButton">↻ Refresh</button>
+                </div>
+
+                <div class="filters">
+                    <div class="search-box">
+                        <span>⌕</span>
+                        <input type="search" id="searchInput"
+                               placeholder="Search class, section or academic year...">
+                    </div>
+                    <select id="statusFilter">
+                        <option value="">All Status</option>
+                        <option value="true">Active</option>
+                        <option value="false">Inactive</option>
+                    </select>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>CLASS</th>
+                                <th>SECTION</th>
+                                <th>ACADEMIC YEAR</th>
+                                <th>CLASS TEACHER</th>
+                                <th>STUDENTS</th>
+                                <th>CAPACITY</th>
+                                <th>STATUS</th>
+                                <th>ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody id="classesTable">
+                            <tr><td colspan="8" class="loading-cell">Loading classes...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="table-footer">
+                    <span id="paginationInfo">Showing 0 classes</span>
+                    <div class="pagination">
+                        <button id="previousButton" disabled>Previous</button>
+                        <span id="pageInfo">Page 1</span>
+                        <button id="nextButton" disabled>Next</button>
+                    </div>
+                </div>
+            </section>
+
+            <footer>© 2026 My School Management System</footer>
+        </section>
+    </main>
+</div>
+
+<div class="modal-overlay" id="classModal">
+    <div class="modal">
+        <div class="modal-header">
+            <div>
+                <h2 id="modalTitle">Add New Class</h2>
+                <p>Enter class information and assign resources.</p>
+            </div>
+            <button class="close-button" id="closeModalButton">×</button>
+        </div>
+
+        <form id="classForm">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Class Name *</label>
+                    <input type="text" name="name" required maxlength="60"
+                           placeholder="e.g. Class 10">
+                </div>
+
+                <div class="form-group">
+                    <label>Section *</label>
+                    <input type="text" name="section" required maxlength="20"
+                           placeholder="e.g. A">
+                </div>
+
+                <div class="form-group">
+                    <label>Academic Year *</label>
+                    <input type="text" name="academicYear" required
+                           placeholder="e.g. 2026-2027">
+                </div>
+
+                <div class="form-group">
+                    <label>Room Number</label>
+                    <input type="text" name="roomNumber" placeholder="e.g. Room 101">
+                </div>
+
+                <div class="form-group">
+                    <label>Class Capacity *</label>
+                    <input type="number" name="capacity" min="1" value="40" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Class Teacher</label>
+                    <select name="classTeacher" id="classTeacher">
+                        <option value="">No Teacher Assigned</option>
+                    </select>
+                </div>
+
+                <div class="form-group full">
+                    <label>Assign Students</label>
+                    <select name="students" id="classStudents" multiple size="5"></select>
+                    <small>Hold Ctrl to select multiple students.</small>
+                </div>
+
+                <div class="form-group full">
+                    <label>Assign Subjects</label>
+                    <select name="subjects" id="classSubjects" multiple size="5"></select>
+                    <small>Hold Ctrl to select multiple subjects.</small>
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button type="button" class="cancel-button" id="cancelButton">Cancel</button>
+                <button type="submit" class="primary-button" id="saveButton">Save Class</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="toast" id="toast"></div>
+</body>
+</html>

@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Management | My School</title>
+    <link rel="stylesheet" href="/css/attendance.css">
+    <script src="/js/attendance.js" defer></script>
+</head>
+<body>
+
+<div class="app-layout">
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <div class="brand-icon">MS</div>
+            <div>
+                <h2>My School</h2>
+                <span>Management System</span>
+            </div>
+        </div>
+
+        <div class="sidebar-profile">
+            <div class="profile-avatar">A</div>
+            <div>
+                <strong id="sidebarName">Administrator</strong>
+                <span>School Admin</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <p class="nav-heading">MAIN MENU</p>
+
+            <a href="/admin-dashboard.html" class="nav-link">
+                <span>▦</span> Dashboard
+            </a>
+            <a href="/students.html" class="nav-link">
+                <span>♙</span> Students
+            </a>
+            <a href="/teachers.html" class="nav-link">
+                <span>♟</span> Teachers
+            </a>
+            <a href="/classes.html" class="nav-link">
+                <span>▤</span> Classes
+            </a>
+            <a href="/subjects.html" class="nav-link">
+                <span>▧</span> Subjects
+            </a>
+            <a href="/attendance.html" class="nav-link active">
+                <span>✓</span> Attendance
+            </a>
+
+            <p class="nav-heading">ACADEMIC</p>
+
+            <a href="/assignments.html" class="nav-link">
+                <span>▣</span> Assignments
+            </a>
+            <a href="/submissions.html" class="nav-link">
+                <span>▤</span> Submissions
+            </a>
+            <a href="/assessments.html" class="nav-link">
+                <span>◫</span> Assessments
+            </a>
+            <a href="/notices.html" class="nav-link">
+                <span>▤</span> Notices
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <button id="logoutButton" class="logout-button">
+                <span>↪</span> Logout
+            </button>
+        </div>
+    </aside>
+
+    <main class="main-content">
+
+        <header class="topbar">
+            <div class="topbar-left">
+                <button id="menuButton" class="menu-button">☰</button>
+                <div>
+                    <h1>Attendance Management</h1>
+                    <p>Manage daily student attendance</p>
+                </div>
+            </div>
+
+            <div class="topbar-user">
+                <div class="user-avatar">A</div>
+                <span id="topName">Administrator</span>
+            </div>
+        </header>
+
+        <section class="page-content">
+
+            <div class="page-heading">
+                <div>
+                    <h2>Attendance Overview</h2>
+                    <p>Mark, review and manage student attendance.</p>
+                </div>
+
+                <button id="refreshButton" class="btn btn-outline">
+                    ↻ Refresh
+                </button>
+            </div>
+
+            <!-- Statistics -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon total-icon">▣</div>
+                    <div>
+                        <span>Total Students</span>
+                        <h3 id="totalStudents">0</h3>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon present-icon">✓</div>
+                    <div>
+                        <span>Present</span>
+                        <h3 id="presentCount">0</h3>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon absent-icon">✕</div>
+                    <div>
+                        <span>Absent</span>
+                        <h3 id="absentCount">0</h3>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon late-icon">◷</div>
+                    <div>
+                        <span>Late</span>
+                        <h3 id="lateCount">0</h3>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon excused-icon">✓</div>
+                    <div>
+                        <span>Excused</span>
+                        <h3 id="excusedCount">0</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mark Attendance -->
+            <section class="panel">
+
+                <div class="panel-header">
+                    <div>
+                        <h3>Mark Attendance</h3>
+                        <p>Select a class and date to mark attendance.</p>
+                    </div>
+                    <span class="section-badge">Daily Attendance</span>
+                </div>
+
+                <div class="filter-grid mark-filters">
+
+                    <div class="form-group">
+                        <label for="classSelect">Select Class *</label>
+                        <select id="classSelect">
+                            <option value="">Loading classes...</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="attendanceDate">Attendance Date *</label>
+                        <input type="date" id="attendanceDate">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="studentSearch">Search Student</label>
+                        <input
+                            type="search"
+                            id="studentSearch"
+                            placeholder="Search by name or roll number"
+                        >
+                    </div>
+
+                </div>
+
+                <div class="attendance-toolbar">
+                    <div>
+                        <strong id="selectedClassName">No class selected</strong>
+                        <span id="studentCountLabel">0 students</span>
+                    </div>
+
+                    <div class="quick-actions">
+                        <button id="allPresentButton" class="btn btn-small btn-success">
+                            All Present
+                        </button>
+                        <button id="allAbsentButton" class="btn btn-small btn-danger">
+                            All Absent
+                        </button>
+                    </div>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Student</th>
+                                <th>Admission No.</th>
+                                <th>Roll No.</th>
+                                <th>Status</th>
+                                <th>Remarks</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="markAttendanceTable">
+                            <tr>
+                                <td colspan="6" class="empty-state">
+                                    Select a class to load students.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="save-attendance">
+                    <span id="saveInfo">Select a class to begin.</span>
+                    <button id="saveAttendanceButton" class="btn btn-primary" disabled>
+                        Save Attendance
+                    </button>
+                </div>
+
+            </section>
+
+            <!-- Attendance Records -->
+            <section class="panel records-panel">
+
+                <div class="panel-header">
+                    <div>
+                        <h3>Attendance Records</h3>
+                        <p>View and manage previously marked attendance.</p>
+                    </div>
+                </div>
+
+                <div class="filter-grid records-filters">
+
+                    <div class="form-group">
+                        <label for="recordClassFilter">Class</label>
+                        <select id="recordClassFilter">
+                            <option value="">All Classes</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="recordDateFilter">Date</label>
+                        <input type="date" id="recordDateFilter">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="recordStatusFilter">Status</label>
+                        <select id="recordStatusFilter">
+                            <option value="">All Statuses</option>
+                            <option value="present">Present</option>
+                            <option value="absent">Absent</option>
+                            <option value="late">Late</option>
+                            <option value="excused">Excused</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group filter-button-group">
+                        <label>&nbsp;</label>
+                        <button id="applyFiltersButton" class="btn btn-primary">
+                            Apply Filters
+                        </button>
+                    </div>
+
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Student</th>
+                                <th>Admission No.</th>
+                                <th>Class</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Remarks</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="recordsTable">
+                            <tr>
+                                <td colspan="7" class="empty-state">
+                                    Loading attendance records...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pagination">
+                    <span id="paginationInfo">Showing 0 records</span>
+
+                    <div>
+                        <button id="previousButton" class="btn btn-outline btn-small" disabled>
+                            Previous
+                        </button>
+                        <span id="pageInfo">Page 1</span>
+                        <button id="nextButton" class="btn btn-outline btn-small" disabled>
+                            Next
+                        </button>
+                    </div>
+                </div>
+
+            </section>
+
+        </section>
+
+    </main>
+</div>
+
+<!-- Edit Attendance Modal -->
+<div class="modal-overlay" id="editModal">
+    <div class="modal">
+
+        <div class="modal-header">
+            <div>
+                <h3>Edit Attendance</h3>
+                <p>Update the student's attendance record.</p>
+            </div>
+            <button id="closeEditModal" class="close-button">×</button>
+        </div>
+
+        <form id="editAttendanceForm">
+
+            <input type="hidden" id="editAttendanceId">
+
+            <div class="form-group">
+                <label>Student</label>
+                <input type="text" id="editStudentName" disabled>
+            </div>
+
+            <div class="form-group">
+                <label for="editStatus">Attendance Status *</label>
+                <select id="editStatus" required>
+                    <option value="present">Present</option>
+                    <option value="absent">Absent</option>
+                    <option value="late">Late</option>
+                    <option value="excused">Excused</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="editRemarks">Remarks</label>
+                <textarea id="editRemarks" rows="3" maxlength="1000"></textarea>
+            </div>
+
+            <div class="modal-actions">
+                <button type="button" id="cancelEditButton" class="btn btn-outline">
+                    Cancel
+                </button>
+                <button type="submit" class="btn btn-primary">
+                    Update Record
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+</body>
+</html>

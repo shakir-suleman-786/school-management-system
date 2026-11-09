@@ -1,0 +1,278 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #172033;
+    background: #f5f7fb;
+}
+
+.login-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 100vh;
+}
+
+.branding-panel {
+    background: linear-gradient(145deg, #101d35, #183b68);
+    color: white;
+    padding: 45px 9%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.brand-logo {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: #ffffff;
+    color: #173b68;
+    display: grid;
+    place-items: center;
+    font-size: 25px;
+    font-weight: 800;
+}
+
+.branding-content {
+    max-width: 510px;
+    padding: 55px 0;
+}
+
+.eyebrow,
+.welcome-label {
+    font-size: 12px;
+    letter-spacing: 2px;
+    font-weight: 700;
+    color: #9fc7ff;
+}
+
+.branding-content h1 {
+    font-size: clamp(35px, 4vw, 52px);
+    line-height: 1.2;
+    margin: 22px 0;
+}
+
+.branding-content p {
+    color: #d0dced;
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+.feature-list {
+    margin-top: 35px;
+    display: grid;
+    gap: 18px;
+}
+
+.feature {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    color: #e8f0fc;
+    font-size: 14px;
+}
+
+.feature-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #315f91;
+    display: grid;
+    place-items: center;
+    color: white;
+}
+
+.branding-footer {
+    color: #b5c5dc;
+    font-size: 12px;
+}
+
+.form-panel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 35px;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 420px;
+}
+
+.form-heading {
+    margin-bottom: 35px;
+}
+
+.form-heading h2 {
+    font-size: 34px;
+    margin: 13px 0 10px;
+    color: #14213a;
+}
+
+.form-heading p {
+    color: #788397;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.welcome-label {
+    color: #2563a9;
+}
+
+.form-group {
+    margin-bottom: 23px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #27364d;
+}
+
+.form-group input {
+    width: 100%;
+    height: 52px;
+    border: 1px solid #dce2eb;
+    border-radius: 9px;
+    padding: 0 15px;
+    font-size: 14px;
+    outline: none;
+    background: #ffffff;
+    color: #172033;
+    transition: 0.2s;
+}
+
+.form-group input:focus {
+    border-color: #2563a9;
+    box-shadow: 0 0 0 3px rgba(37, 99, 169, 0.1);
+}
+
+.password-wrapper {
+    position: relative;
+}
+
+.password-wrapper input {
+    padding-right: 65px;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    color: #2563a9;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.login-button {
+    width: 100%;
+    height: 53px;
+    border: none;
+    border-radius: 9px;
+    background: #1c4f85;
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.login-button:hover {
+    background: #143c69;
+}
+
+.login-button:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+.message {
+    display: none;
+    padding: 12px 14px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.message.error {
+    display: block;
+    color: #a52626;
+    background: #fff0f0;
+    border: 1px solid #ffd1d1;
+}
+
+.message.success {
+    display: block;
+    color: #17633b;
+    background: #edfff4;
+    border: 1px solid #c7f0d7;
+}
+
+.security-note {
+    text-align: center;
+    margin-top: 28px;
+    color: #8a95a7;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.security-note span {
+    margin-right: 5px;
+}
+
+.mobile-brand {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    margin-bottom: 40px;
+}
+
+@media (max-width: 850px) {
+    .login-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .branding-panel {
+        display: none;
+    }
+
+    .form-panel {
+        min-height: 100vh;
+        padding: 25px;
+    }
+
+    .mobile-brand {
+        display: flex;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-panel {
+        padding: 22px;
+    }
+
+    .form-heading h2 {
+        font-size: 29px;
+    }
+}
